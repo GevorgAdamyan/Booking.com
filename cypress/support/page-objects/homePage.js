@@ -65,7 +65,7 @@ class HomePage {
         this.getLocationOption(locationName).click();
     }
 
-    openGuuestCounter() {
+    openGuestCounter() {
         this.getGuestsCounter().click();
         this.getAdultCounter().then(el => {
             let txt = el.text();
@@ -79,13 +79,13 @@ class HomePage {
     }
 
     addAdultGuest() {
-        this.openGuuestCounter();
+        this.openGuestCounter();
         this.getAddAdultButton().click();
         this.getAdultCounter().then(el => {
             let txt = el.text();
             let numberOfAdults = +txt.split(' ')[0];
-            cy.get('@numberOfAdultsBefore').then(el => {
-                let expectedNumberOfAdults = el + 1;
+            cy.get('@numberOfAdultsBefore').then(numberOfAdultsBefore => {
+                let expectedNumberOfAdults = numberOfAdultsBefore + 1;
                 expect(expectedNumberOfAdults).to.equal(numberOfAdults);
             });
         })
