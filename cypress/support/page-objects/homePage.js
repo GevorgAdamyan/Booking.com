@@ -6,7 +6,7 @@ class HomePage {
     getHomePageLogo() {
         return cy.get(".bui-header__logo");
     }
-    
+
     getHomePageTitle() {
         return cy.title();
     }
@@ -56,7 +56,7 @@ class HomePage {
         let dates = helpers.generateDatesForBooking();
         dates.forEach(el => {
             this.getDate(el).click()
-            .should('have.class', 'bui-calendar__date--selected');
+                .should('have.class', 'bui-calendar__date--selected');
         })
     }
 
@@ -84,8 +84,10 @@ class HomePage {
         this.getAdultCounter().then(el => {
             let txt = el.text();
             let numberOfAdults = +txt.split(' ')[0];
-            let expectedNumberOfAdultsBefore = numberOfAdults - 1;
-            cy.get('@numberOfAdultsBefore').should('equal', expectedNumberOfAdultsBefore);
+            cy.get('@numberOfAdultsBefore').then(el => {
+                let expectedNumberOfAdults = el + 1;
+                expect(expectedNumberOfAdults).to.equal(numberOfAdults);
+            });
         })
     }
 
